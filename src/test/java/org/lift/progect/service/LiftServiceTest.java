@@ -35,14 +35,19 @@ public class LiftServiceTest extends TestCase {
         assertEquals(5, liftService.getLift().getUsersIntoLift().size());
         assertEquals(0, allUsersFloor.get(Move.UP).size());
     }
-
+    @Test
     public void testUsersGoOutLift() {
         List<User> users = liftService.getLift().getUsersIntoLift();
-        users.get(1).setNewPosition(0);
+        liftService.getLift().setPosition(3);
+        users.get(1).setNewPosition(3);
         System.out.println(users);
         int size = users.size();
-        assertEquals(1, liftService.usersGoOutLift().size());//Колличество вышедших из лифта
+        List<User> goOut = liftService.usersGoOutLift();
+        assertEquals(1, goOut.size());//Колличество вышедших из лифта
         assertEquals(size - 1, liftService.getLift().getUsersIntoLift().size());//Колличество оставшихся в лифте
+        for(User user : goOut) {
+            assertEquals(3, user.getPosition());
+        }
     }
 
     public void testTestRun() {

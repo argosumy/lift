@@ -1,5 +1,7 @@
 package org.lift.progect.model;
 
+import org.apache.log4j.Logger;
+import org.lift.progect.service.LiftService;
 import org.lift.progect.service.Move;
 
 public class User implements Comparable {
@@ -7,6 +9,8 @@ public class User implements Comparable {
     private int position;
     private int newPosition;
     private Move move;
+    private final static Logger logger = Logger.getLogger(User.class);
+
 
     public User(int id, int position, int newPosition) {
         this.id = id;
@@ -50,11 +54,15 @@ public class User implements Comparable {
     @Override
     public int compareTo(Object o) {
         User user = (User)o;
+        if (o == null) {
+            logger.info("Сравнение юзера " + o + " и " + this);
+            return 0;
+        }
         return this.getNewPosition() - user.getNewPosition();
     }
 
     @Override
     public String toString() {
-        return "User " + id + " position " + position + " move " + move + " newP " + newPosition;
+        return "User " + id + " position " + position + " move " + newPosition;
     }
 }

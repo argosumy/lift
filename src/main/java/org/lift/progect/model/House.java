@@ -8,9 +8,9 @@ import java.util.Queue;
 
 public class House {
     private static House house;
-    private final int amountFloorMAX = 20;
+    private final int amountFloorMAX = 5;//20
     private final int amountFloorMin = 5;
-    private final int amountUsersFloor = 10;
+    private final int amountUsersFloor = 5;//10
     private int amountFlor;
     private Map<Integer, Map<Move, Queue<User>>> usersHouse;
 
