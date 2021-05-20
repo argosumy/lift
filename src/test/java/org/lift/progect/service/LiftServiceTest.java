@@ -2,54 +2,46 @@ package org.lift.progect.service;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.lift.progect.model.House;
+import org.lift.progect.model.Lift;
 import org.lift.progect.model.User;
 
 import java.util.*;
 
 public class LiftServiceTest extends TestCase {
-    LiftService liftService = new LiftService(new RandomGeneratorImpl());
+    House house;
+    Lift lift;
+    LiftService liftService;
     {
-
-        List<User> usersIntoLift = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            usersIntoLift.add(new User(i, 0, 4));
-        }
-        liftService.getLift().setUsersIntoLift(usersIntoLift);
+        house = House.getInstance();
+        lift = Lift.getInstance();
+        RandomGenerator generator = new RandomGeneratorImpl();
+        house.generatedHouse(generator);
+        liftService = new LiftService(generator);
     }
+
 
     @Test
     public void testIsFree() {
-        assertFalse(liftService.isFree());
-        liftService.getLift().getUsersIntoLift().remove(1);
         assertTrue(liftService.isFree());
     }
 
     @Test
     public void testUsersComeInLift() {
-        liftService.getLift().getUsersIntoLift().remove(1);
-        Map<Move, Queue<User>> allUsersFloor = new HashMap<>();
-        Queue<User> users = new LinkedList<>();
-        users.offer(new User(6, 0, 4));
-        allUsersFloor.put(Move.UP, users);
-        liftService.usersComeInLift(allUsersFloor);
-        assertEquals(5, liftService.getLift().getUsersIntoLift().size());
-        assertEquals(0, allUsersFloor.get(Move.UP).size());
-    }
-    @Test
-    public void testUsersGoOutLift() {
-        List<User> users = liftService.getLift().getUsersIntoLift();
-        liftService.getLift().setPosition(3);
-        users.get(1).setNewPosition(3);
-        System.out.println(users);
-        int size = users.size();
-        List<User> goOut = liftService.usersGoOutLift();
-        assertEquals(1, goOut.size());//Колличество вышедших из лифта
-        assertEquals(size - 1, liftService.getLift().getUsersIntoLift().size());//Колличество оставшихся в лифте
-        for(User user : goOut) {
-            assertEquals(3, user.getPosition());
-        }
     }
 
+    @Test
+    public void testUsersGoOutLift() {
+        int size = lift.getUsersIntoLift().size();
+        int users = house.getUsersHouse().get(lift.getPosition()).get(lift.getMove()).size();
+        liftService.usersComeInLift(house.getUsersHouse().get(lift.getPosition()));
+
+    }
+    @Test
     public void testTestRun() {
+        int next = liftService.getLift().getNextPosition();
+        liftService.run();
+        int position = liftService.getLift().getPosition();
+        assertEquals(next, position);
     }
 }

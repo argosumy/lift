@@ -1,5 +1,6 @@
 package org.lift.progect.model;
 
+import org.lift.progect.configuration.AppConfig;
 import org.lift.progect.service.Move;
 import org.lift.progect.service.RandomGenerator;
 
@@ -8,12 +9,17 @@ import java.util.Queue;
 
 public class House {
     private static House house;
-    private final int amountFloorMAX = 5;//20
-    private final int amountFloorMin = 5;
-    private final int amountUsersFloor = 5;//10
+    private static final int AMOUNT_FLOOR_MAX;
+    private static final int AMOUNT_FLOOR_MIN;
+    private static final int AMOUNT_USERS_FLOOR;
     private int amountFlor;
     private Map<Integer, Map<Move, Queue<User>>> usersHouse;
 
+    static {
+        AMOUNT_FLOOR_MAX = AppConfig.AMOUNT_FLOOR_MAX;
+        AMOUNT_FLOOR_MIN = AppConfig.AMOUNT_FLOOR_MIN;
+        AMOUNT_USERS_FLOOR = AppConfig.AMOUNT_USERS_FLOOR;
+    }
 
     private House() {
     }
@@ -25,7 +31,7 @@ public class House {
         return house;
     }
     public void generatedHouse (RandomGenerator generator) {
-        usersHouse = generator.generateHouse(amountFloorMin, amountFloorMAX, amountUsersFloor);
+        usersHouse = generator.generateHouse(AMOUNT_FLOOR_MIN, AMOUNT_FLOOR_MAX, AMOUNT_USERS_FLOOR);
         amountFlor = usersHouse.size();
     }
 
@@ -36,4 +42,24 @@ public class House {
     public int getAmountFlor() {
         return amountFlor;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,0 +1,36 @@
+Этаж 1 Лифт едет UP
+          В лифте                                  На площадке
+                                         UP                        DOWN
+                             User 1 position 1 move 2    /* сядет в лифт  первым */
+    /*Лифт пустой*/          User 2 position 1 move 3
+                             User 3 position 1 move 2             (очередь)
+                             User 4 position 1 move 4
+                             User 5 position 1 move 2    /* сядет в лифт  последним */
+
+
+Этаж 2 Лифт едет UP
+          В лифте                                  На площадке
+                                         UP                        DOWN
+User 2 position 1 move 3     User 7 position 2 move 5     User 6 position 2 move 1
+User 4 position 1 move 4     User 9 position 2 move 4     User 8 position 2 move 1
+                             User 10 position 2 move 5
+                             User 1 position 2 move 3  // приехал с 1 этажа и встал в очередь снова
+                             User 3 position 2 move 5  // приехал с 1 этажа и встал в очередь снова
+                             User 5 position 2 move 5  // приехал с 1 этажа и встал в очередь снова
+
+
+Этаж 3 Лифт едет UP
+          В лифте                                  На площадке
+                                         UP                        DOWN
+User 4 position 1 move 4     User 11 position 3 move 4     User 2 position 3 move 2
+User 7 position 2 move 5  //сел в лифт на 2 этаже
+User 9 position 2 move 4  //сел в лифт на 2 этаже
+User 10 position 2 move 5 //сел в лифт на 2 этаже
+
+
+Этаж 4 Лифт едет UP
+          В лифте                                  На площадке
+                                         UP                        DOWN
+User 7 position 2 move 5     User 12 position 4 move 5     User 13 position 4 move 1
+User 10 position 2 move 5                                   User 4 position 4 move 1 //приехал с 1 этажа и встал в очередь
+                                                           User 9 position 4 move 3  //приехал со 2 этажа и встал в очередь

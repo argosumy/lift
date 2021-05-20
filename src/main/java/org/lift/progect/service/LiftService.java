@@ -10,9 +10,8 @@ import java.util.stream.Collectors;
 
 public class LiftService {
     private Lift lift;
-    private House house;
-    private RandomGenerator generator;
-    int step = 1;
+    private final House house;
+    private final RandomGenerator generator;
     private final static Logger logger = Logger.getLogger(LiftService.class);
 
     public LiftService(RandomGenerator generator) {
@@ -23,19 +22,15 @@ public class LiftService {
 
     public void firstStart() {
         logger.info("FLOOR - " + lift.getPosition());
-        lift.getUsersIntoLift().removeIf(x -> x == null);
+        lift.getUsersIntoLift().removeIf(Objects::isNull);
         print();
-//        if (house.getUsersHouse().get(Move.UP).size() != 0) {
-            usersComeInLift(house.getUsersHouse().get(lift.getPosition()));
-            run();
-            usersGoOutLift();
-            if(lift.getUsersIntoLift().size() > 0) {
-                logger.info("HREN " + lift);
-                firstStart();
-
-            }
-//        }
-        System.out.println("ВЫХОД");
+        usersComeInLift(house.getUsersHouse().get(lift.getPosition()));
+        run();
+        usersGoOutLift();
+        if(lift.getUsersIntoLift().size() > 0) {
+            firstStart();
+        }
+        //    print();
     }
 
     public boolean isFree() {
@@ -46,23 +41,22 @@ public class LiftService {
         while(isFree()) {
             lift.getUsersIntoLift().add(allUsersFloor.get(lift.getMove()).poll());
         }
-        logger.info("Вход в лифт ");
+        logger.info("GO INTO LIFT");
     }
 
     public List<User> usersGoOutLift() {
         ArrayList<User> usersLift = (ArrayList<User>) lift.getUsersIntoLift();
-//        usersLift.trimToSize();
         logger.info(usersLift);
-        List <User> goOut = usersLift.stream().filter(x -> x != null)
+        List <User> goOut = usersLift.stream().filter(Objects::nonNull)
                 .filter(x -> x.getNewPosition() == lift.getPosition())
                 .map(this::updateUser)
                 .collect(Collectors.toList());
-        logger.info("Result stream " + goOut);
+        logger.info("RESULT OF STREAM " + goOut);
         for (User user: goOut) {
             lift.getUsersIntoLift().remove(user);
         }
         updateFloor(goOut);
-        logger.info("Выход из лифта  - ");
+        logger.info("USERS EXIT LIFT  - ");
         return goOut;
     }
 
@@ -97,7 +91,7 @@ public class LiftService {
         return userStream;
     }
 
-    private void print () {
+    public void print () {
         List<User> usersLift = lift.getUsersIntoLift();
         Map<Move, Queue<User>> usersFloor = house.getUsersHouse().get(lift.getPosition());
         LinkedList<User> usersUp = (LinkedList<User>) usersFloor.get(Move.UP);
@@ -109,7 +103,6 @@ public class LiftService {
         System.out.println("          В лифте                                 " + " На площадке");
         System.out.println("                       " + "                  UP     " + "                   DOWN          ");
         int i = 0;
-        int j = 0;
         while (iter) {
             if (usersLift.size() > i && usersLift.get(i) != null) {
                 System.out.print(usersLift.get(i) + "     ");

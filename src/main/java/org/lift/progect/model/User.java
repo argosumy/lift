@@ -1,7 +1,6 @@
 package org.lift.progect.model;
 
 import org.apache.log4j.Logger;
-import org.lift.progect.service.LiftService;
 import org.lift.progect.service.Move;
 
 public class User implements Comparable {
@@ -45,10 +44,6 @@ public class User implements Comparable {
 
     public void setMove(Move move) {
         this.move = move;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override

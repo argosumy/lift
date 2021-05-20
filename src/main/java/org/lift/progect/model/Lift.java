@@ -1,16 +1,14 @@
 package org.lift.progect.model;
 
 import org.apache.log4j.Logger;
+import org.lift.progect.configuration.AppConfig;
 import org.lift.progect.service.Move;
 
 import java.util.*;
 
-/**
- * setNextPosition() - вызывается перед началом движения.
- */
 public class Lift {
     private static Lift lift;
-    private static final int MAX_USER = 5;
+    private static final int MAX_USER = AppConfig.LIFT_SIZE;
     private Move move;
     private int position;
     private int nextPosition;
@@ -45,12 +43,12 @@ public class Lift {
 
     public void setNextPosition() {
         if(usersIntoLift != null) {
+            usersIntoLift.removeIf(Objects::isNull);
             if(usersIntoLift.size() > 1) {
-                usersIntoLift.removeIf(x -> x == null);
-                System.out.println("SIZE - " + usersIntoLift.size());
+                usersIntoLift.removeIf(Objects::isNull);
                 if (move == Move.UP) {
                     logger.info("USERS INTO LIFT" + usersIntoLift + " size " + usersIntoLift.size());
-                    nextPosition = usersIntoLift.stream().filter(x -> x != null).min(User::compareTo).get().getNewPosition();
+                    nextPosition = usersIntoLift.stream().filter(Objects::nonNull).min(User::compareTo).get().getNewPosition();
                 } else {
                     nextPosition = usersIntoLift.stream().max(User::compareTo).get().getNewPosition();
                 }

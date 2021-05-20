@@ -35,6 +35,9 @@ public class RandomGeneratorImpl implements RandomGenerator {
             usersFloor.put(Move.DOWN, usersMoveDown);
             usersHouse.put(i, usersFloor);
         }
+        if(usersHouse.get(1).get(Move.UP).size() == 0) {
+            usersHouse.get(1).get(Move.UP).offer(new User(0, 1, 2));
+        }
         return usersHouse;
     }
 
