@@ -1,36 +1,90 @@
 Этаж 1 Лифт едет UP
           В лифте                                  На площадке
                                          UP                        DOWN
-                             User 1 position 1 move 2    /* сядет в лифт  первым */
-    /*Лифт пустой*/          User 2 position 1 move 3
-                             User 3 position 1 move 2             (очередь)
-                             User 4 position 1 move 4
-                             User 5 position 1 move 2    /* сядет в лифт  последним */
+                           <-User 1 position 1 move 4   /
+                           <-User 2 position 1 move 4   /
+     /*Лифт пустой*/       <-User 3 position 1 move 2   /      Сели В лифт (очередь)
+                           <-User 4 position 1 move 2   /
+                           <-User 5 position 1 move 2   /
+                             User 6 position 1 move 5
+                             User 7 position 1 move 3
 
 
 Этаж 2 Лифт едет UP
           В лифте                                  На площадке
                                          UP                        DOWN
-User 2 position 1 move 3     User 7 position 2 move 5     User 6 position 2 move 1
-User 4 position 1 move 4     User 9 position 2 move 4     User 8 position 2 move 1
-                             User 10 position 2 move 5
-                             User 1 position 2 move 3  // приехал с 1 этажа и встал в очередь снова
-                             User 3 position 2 move 5  // приехал с 1 этажа и встал в очередь снова
-                             User 5 position 2 move 5  // приехал с 1 этажа и встал в очередь снова
+User 1 position 1 move 4   <-User 8 position 2 move 3     User 12 position 2 move 1
+User 2 position 1 move 4   <-User 9 position 2 move 3     User 14 position 2 move 1
+                           <-User 10 position 2 move 3     User 15 position 2 move 1
+                             User 11 position 2 move 4     User 16 position 2 move 1
+                             User 13 position 2 move 4
+                             User 17 position 2 move 3
+                           ->User 3 position 2 move 3  /
+                           ->User 4 position 2 move 5  / Приехали со 2 этажа и встали в очередь
+                           ->User 5 position 2 move 5  /
 
 
 Этаж 3 Лифт едет UP
           В лифте                                  На площадке
                                          UP                        DOWN
-User 4 position 1 move 4     User 11 position 3 move 4     User 2 position 3 move 2
-User 7 position 2 move 5  //сел в лифт на 2 этаже
-User 9 position 2 move 4  //сел в лифт на 2 этаже
-User 10 position 2 move 5 //сел в лифт на 2 этаже
+User 1 position 1 move 4  <- User 21 position 3 move 5     User 18 position 3 move 1
+User 2 position 1 move 4  <- User 22 position 3 move 5     User 19 position 3 move 2
+                          <- User 24 position 3 move 4     User 20 position 3 move 1
+                             User 25 position 3 move 5     User 23 position 3 move 2
+                             User 26 position 3 move 4
+                           ->User 8 position 3 move 5    /
+                           ->User 9 position 3 move 1    /       ПРиехали с 3 этажа и встали в очередь
+                           ->User 10 position 3 move 5   /
 
 
 Этаж 4 Лифт едет UP
           В лифте                                  На площадке
                                          UP                        DOWN
-User 7 position 2 move 5     User 12 position 4 move 5     User 13 position 4 move 1
-User 10 position 2 move 5                                   User 4 position 4 move 1 //приехал с 1 этажа и встал в очередь
-                                                           User 9 position 4 move 3  //приехал со 2 этажа и встал в очередь
+User 21 position 3 move 5                                ->User 1 position 4 move 2    /Приехали с 1 этажа
+User 22 position 3 move 5                                ->User 2 position 4 move 1    /
+                                                         ->User 24 position 4 move 3   /Приехал с 3 этажа
+
+Этаж 5 Лифт едет UP
+          В лифте                                  На площадке
+                                         UP                        DOWN
+                                                         ->User 21 position 5 move 2
+
+Этаж 5 Лифт едет DOWN
+          В лифте                                  На площадке
+                                         UP                        DOWN
+                                                         <-User 21 position 5 move 2
+
+Этаж 3 Лифт едет DOWN
+          В лифте                                  На площадке
+                                         UP                        DOWN
+User 21 position 5 move 2    User 25 position 3 move 5   <-User 18 position 3 move 1
+                             User 26 position 3 move 4   <-User 19 position 3 move 2
+                             User 8 position 3 move 5    <-User 20 position 3 move 1
+                             User 9 position 3 move 1    <-User 23 position 3 move 2
+                             User 10 position 3 move 5     User 22 position 3 move 1
+
+
+Этаж 2 Лифт едет DOWN
+          В лифте                                  На площадке
+                                         UP                        DOWN
+User 18 position 3 move 1     User 11 position 2 move 4  <- User 12 position 2 move 1
+User 20 position 3 move 1     User 13 position 2 move 4  <- User 14 position 2 move 1
+                              User 17 position 2 move 3  <- User 15 position 2 move 1
+                              User 3 position 2 move 3      User 16 position 2 move 1
+                              User 4 position 2 move 5    ->User 21 position 2 move 1
+                              User 5 position 2 move 5    ->User 19 position 2 move 3
+                                                          ->User 23 position 2 move 4
+
+Этаж 1 Лифт едет DOWN
+          В лифте                                  На площадке
+                                         UP                        DOWN
+                             User 6 position 1 move 5
+                             User 7 position 1 move 3
+                           ->User 18 position 1 move 4
+                           ->User 20 position 1 move 3
+                             User 12 position 1 move 2
+                             User 14 position 1 move 4
+                             User 15 position 1 move 4
+
+
+         THE END

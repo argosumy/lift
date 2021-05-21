@@ -6,8 +6,6 @@ import java.util.*;
 
 public class RandomGeneratorImpl implements RandomGenerator {
 
-
-
     @Override
     public Map<Integer, Map<Move, Queue<User>>> generateHouse(int amountFlorMin, int amountFloorMax, int amountUsersMax) {
         Map<Integer, Map<Move, Queue<User>>> usersHouse = new HashMap<>();

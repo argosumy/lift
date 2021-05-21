@@ -15,7 +15,6 @@ public class Lift {
     private List<User> usersIntoLift;
     private final static Logger logger = Logger.getLogger(Lift.class);
 
-
     private Lift() {
         position = 1;
         move = Move.UP;
