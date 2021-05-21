@@ -9,7 +9,7 @@ import java.util.Queue;
 public interface LiftService {
     void firstStart();
     void usersComeInLift(Map<Move, Queue<User>> allUsersFloor);
-    List<User> usersGoOutLift();
+    void usersGoOutLift();
     void changeMove();
     void run ();
     void print ();

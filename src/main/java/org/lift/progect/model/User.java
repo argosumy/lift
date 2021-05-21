@@ -10,7 +10,6 @@ public class User implements Comparable {
     private Move move;
     private final static Logger logger = Logger.getLogger(User.class);
 
-
     public User(int id, int position, int newPosition) {
         this.id = id;
         this.position = position;
@@ -40,10 +39,6 @@ public class User implements Comparable {
 
     public Move getMove() {
         return move;
-    }
-
-    public void setMove(Move move) {
-        this.move = move;
     }
 
     @Override

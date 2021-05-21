@@ -4,8 +4,7 @@ import org.lift.progect.service.*;
 
 public class LiftController {
 
-    public void liftController (LiftService liftService, RandomGenerator generator) {
-        liftService = new LiftServiceImpl(generator);
+    public void liftController (LiftService liftService) {
         liftService.firstStart();
         liftService.print();
         liftService.changeMove();

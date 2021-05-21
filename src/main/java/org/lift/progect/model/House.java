@@ -4,27 +4,26 @@ import org.lift.progect.configuration.AppConfig;
 import org.lift.progect.service.Move;
 import org.lift.progect.service.RandomGenerator;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Queue;
 
 public class House {
     private static House house;
-    private static final int AMOUNT_FLOOR_MAX;
-    private static final int AMOUNT_FLOOR_MIN;
-    private static final int AMOUNT_USERS_FLOOR;
+    private final int AMOUNT_FLOOR_MAX;
+    private final int AMOUNT_FLOOR_MIN;
+    private final int AMOUNT_USERS_FLOOR;
     private int amountFlor;
     private Map<Integer, Map<Move, Queue<User>>> usersHouse;
 
-    static {
-        AMOUNT_FLOOR_MAX = AppConfig.AMOUNT_FLOOR_MAX;
-        AMOUNT_FLOOR_MIN = AppConfig.AMOUNT_FLOOR_MIN;
-        AMOUNT_USERS_FLOOR = AppConfig.AMOUNT_USERS_FLOOR;
+    private House() throws IOException {
+        AppConfig config = new AppConfig();
+        AMOUNT_FLOOR_MAX = config.AMOUNT_FLOOR_MAX;
+        AMOUNT_FLOOR_MIN = config.AMOUNT_FLOOR_MIN;
+        AMOUNT_USERS_FLOOR = config.AMOUNT_USERS_FLOOR;
     }
 
-    private House() {
-    }
-
-    public static synchronized House getInstance() {
+    public static synchronized House getInstance() throws IOException {
         if (house == null) {
             house = new House();
         }
@@ -42,24 +41,4 @@ public class House {
     public int getAmountFlor() {
         return amountFlor;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

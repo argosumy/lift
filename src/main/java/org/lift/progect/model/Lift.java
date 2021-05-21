@@ -4,24 +4,28 @@ import org.apache.log4j.Logger;
 import org.lift.progect.configuration.AppConfig;
 import org.lift.progect.service.Move;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Lift {
     private static Lift lift;
-    private static final int MAX_USER = AppConfig.LIFT_SIZE;
+    private final int MAX_USER;
     private Move move;
     private int position;
     private int nextPosition;
-    private List<User> usersIntoLift;
+    private final List<User> usersIntoLift;
     private final static Logger logger = Logger.getLogger(Lift.class);
 
-    private Lift() {
+    private Lift() throws IOException {
+        AppConfig config = new AppConfig();
+        MAX_USER = config.LIFT_SIZE;
         position = 1;
         move = Move.UP;
         usersIntoLift = new ArrayList<>();
+
     }
 
-    public static synchronized Lift getInstance() {
+    public static synchronized Lift getInstance() throws IOException {
         if (lift == null) {
             lift = new Lift();
         }
@@ -41,25 +45,21 @@ public class Lift {
     }
 
     public void setNextPosition() {
-        if(usersIntoLift != null) {
+        usersIntoLift.removeIf(Objects::isNull);
+        if (usersIntoLift.size() > 1) {
             usersIntoLift.removeIf(Objects::isNull);
-            if(usersIntoLift.size() > 1) {
-                usersIntoLift.removeIf(Objects::isNull);
-                if (move == Move.UP) {
-                    logger.info("USERS INTO LIFT" + usersIntoLift + " size " + usersIntoLift.size());
-                    nextPosition = usersIntoLift.stream().filter(Objects::nonNull).min(User::compareTo).get().getNewPosition();
-                } else {
-                    nextPosition = usersIntoLift.stream().max(User::compareTo).get().getNewPosition();
-                }
-            } else if (usersIntoLift.size() != 0) {
-                nextPosition = usersIntoLift.get(0).getNewPosition();
+            if (move == Move.UP) {
+                logger.info("USERS INTO LIFT" + usersIntoLift + " size " + usersIntoLift.size());
+                nextPosition = usersIntoLift.stream().filter(Objects::nonNull).min(User::compareTo).get().getNewPosition();
+            } else {
+                nextPosition = usersIntoLift.stream().max(User::compareTo).get().getNewPosition();
             }
-        } else {
-            nextPosition = 1;
+        } else if (usersIntoLift.size() != 0) {
+            nextPosition = usersIntoLift.get(0).getNewPosition();
         }
     }
 
-    public static int getMaxUser() {
+    public int getMaxUser() {
         return MAX_USER;
     }
 
@@ -73,9 +73,5 @@ public class Lift {
 
     public List<User> getUsersIntoLift() {
         return usersIntoLift;
-    }
-
-    public void setUsersIntoLift(List<User> usersIntoLift) {
-        this.usersIntoLift = usersIntoLift;
     }
 }

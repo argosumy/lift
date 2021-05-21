@@ -5,6 +5,7 @@ import org.lift.progect.model.House;
 import org.lift.progect.model.Lift;
 import org.lift.progect.model.User;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ public class LiftServiceImpl implements LiftService{
     private final RandomGenerator generator;
     private final static Logger logger = Logger.getLogger(LiftServiceImpl.class);
 
-    public LiftServiceImpl(RandomGenerator generator) {
+    public LiftServiceImpl(RandomGenerator generator) throws IOException {
         lift = Lift.getInstance();
         house = House.getInstance();
         this.generator = generator;
@@ -33,7 +34,7 @@ public class LiftServiceImpl implements LiftService{
     }
 
     private boolean isFree() {
-        return (Lift.getMaxUser() > lift.getUsersIntoLift().size());
+        return (lift.getMaxUser() > lift.getUsersIntoLift().size());
     }
 
     @Override
@@ -45,7 +46,7 @@ public class LiftServiceImpl implements LiftService{
     }
 
     @Override
-    public List<User> usersGoOutLift() {
+    public void usersGoOutLift() {
        ArrayList<User> usersLift = (ArrayList<User>) lift.getUsersIntoLift();
        logger.info(usersLift);
         List <User> goOut = usersLift.stream().filter(Objects::nonNull)
@@ -58,7 +59,6 @@ public class LiftServiceImpl implements LiftService{
         }
         updateFloor(goOut);
         logger.info("USERS EXIT LIFT  - ");
-        return goOut;
     }
 
     private void updateFloor (List <User> usersGoOutLift) {
